@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BusinessCardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard',[BusinessCardController::class,'index'])->middleware(['auth'])->name('dashboard');
+
+Route::post('/newbusinesscard',[BusinessCardController::class,'store'])->middleware(['auth']);
+
+Route::get('/newbusinesscard', function () {
+    return view('newbusinesscard');
+})->middleware(['auth'])->name('get_newbusinesscard');
+
+
+
+require __DIR__.'/auth.php';
